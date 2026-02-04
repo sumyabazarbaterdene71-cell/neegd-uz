@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine iMessage 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #f2f2f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+    .phone {
+      width: 100%;
+      max-width: 390px;
+      height: 100%;
+      background: #f2f2f7;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .bubble {
+      max-width: 85%;
+      padding: 14px 18px;
+      border-radius: 22px;
+      margin-bottom: 12px;
+      font-size: 18px;
+      line-height: 1.4;
+      animation: pop 0.3s ease;
+    }
+    .from-me {
+      background: #ff4d6d;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+    .from-them {
+      background: #e5e5ea;
+      color: black;
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+    }
+    @keyframes pop {
+      from { transform: scale(0.9); }
+      to { transform: scale(1); }
+    }
+    .actions {
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding-bottom: 10px;
+    }
+    button {
+      font-size: 18px;
+      padding: 14px 26px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Pacifico', cursive;
+    }
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+    #no {
+      background: #d1d1d6;
+      position: absolute;
+    }
+    .heart {
+      position: fixed;
+      font-size: 28px;
+      animation: floatUp 3s linear forwards;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-100vh); opacity: 0; }
+    }
+    .pet {
+      position: fixed;
+      width: 220px;
+      z-index: 1;
+      animation: pop 0.4s ease;
+    }
+    .cry {
+      position: fixed;
+      font-size: 26px;
+      animation: shake 0.25s infinite;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+      100% { transform: translateX(-6px); }
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div id="chat"></div>
+  <div class="actions">
+    <button id="yes" onclick="yesClicked()">Yes 💖</button>
+    <button id="no" onmouseover="noHover()">No 💔</button>
+  </div>
+</div>
+<script>
+  const crushName = "YOUR NAME HERE";
+  const messages = [
+    `Hey ${crushName} 🥺`,
+    "Can I ask you something…",
+    "Will you be my Valentine? 💕",
+    "wow.",
+    "that hurt actually 😭",
+    "I’m telling the cat."
+  ];
+  let index = 0;
+  const chat = document.getElementById("chat");
+  addBubble(messages[0], "from-me");
+  function addBubble(text, type) {
+    const bubble = document.createElement("div");
+    bubble.className = `bubble ${type}`;
+    bubble.innerHTML = text;
+    chat.appendChild(bubble);
+  }
+  function yesClicked() {
+    addBubble("YES 💖🥰", "from-them");
+    for (let i = 0; i < 30; i++) createHeart();
+    for (let i = 0; i < 3; i++) popSadCat();
+    setTimeout(() => {
+      alert("🎉💘 CONGRATS 💘🎉\nYou are now officially my Valentine 😘");
+    }, 400);
+  }
+  function noHover() {
+    moveNo();
+    cry();
+    popSadCat();
+    if (index < messages.length - 1) {
+      index++;
+      addBubble(messages[index], "from-me");
+    }
+  }
+  function moveNo() {
+    const btn = document.getElementById("no");
+    btn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+  }
+  function createHeart() {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = "💖";
+    h.style.left = Math.random() * window.innerWidth + "px";
+    h.style.bottom = "0px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 3000);
+  }
+  function popSadCat() {
+    const pet = document.createElement("img");
+    pet.src = "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif";
+    pet.className = "pet";
+    pet.style.left = Math.random() * (window.innerWidth - 220) + "px";
+    pet.style.top = Math.random() * (window.innerHeight - 220) + "px";
+    document.body.appendChild(pet);
+    setTimeout(() => pet.remove(), 2500);
+  }
+  function cry() {
+    const c = document.createElement("div");
+    c.className = "cry";
+    c.innerText = ["😭", "💔", "pls", "WHY"][Math.floor(Math.random()*4)];
+    c.style.left = Math.random() * (window.innerWidth - 50) + "px";
+    c.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 1200);
+  }
+</script>
+</body>
+</html>
